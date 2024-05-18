@@ -1,0 +1,101 @@
+<!-- import React from 'react';
+import "../Styles/Asli.css";
+import { useNavigate } from 'react-router-dom';
+
+
+const Asli = () => {
+
+  let location = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let sudh = new FormData(e.target);
+    let formobj = Object.fromEntries(sudh.entries());
+    console.log(formobj);
+  
+    location(`/Test/${formobj.Duration}`);
+   
+  };
+
+
+  return (
+    <>
+    <div className="commission ">
+  <div className="form_area w-[500px] mr-[-380px]">
+    <p className="sign_up "> Test Configuration</p>
+
+    <form action="" onSubmit={handleSubmit}>
+      <div className="form_gro  ">
+        <label className="sub_toll " htmlFor="name">
+        Level
+        </label>
+<div className="radio-inputs "  >
+  <label className="radio">
+    <input type="radio" name="radio"  />
+    <span className="name">Easy</span>
+  </label>
+  <label className="radio">
+    <input type="radio" name="radio" />
+    <span className="name">Medium</span>
+  </label>
+  <label className="radio">
+    <input type="radio" name="radio" />
+    <span className="name">Hard</span>
+  </label>
+</div>
+      </div>
+
+      <div className="form_gro "  >
+        <label className="sub_toll" htmlFor="email">
+        Time
+        </label>
+        <div className="radio-inputs ">
+
+  <label className="radio" >
+    <input type="radio" name="Duration" value="30" />
+    <span className="name" >30second</span>
+  </label>
+  <label className="radio">
+    <input type="radio" name="Duration" value="60"/>
+    <span className="name">1minute</span>
+  </label>
+
+</div>
+
+     
+      </div>
+      <div className="form_gro ">
+        <label className="sub_toll" htmlFor="password">
+          Hands
+        </label>
+        <div className="radio-inputs"  >
+  <label className="radio">
+    <input type="radio" name="hand"value="yes" />
+    <span className="name">Yes</span>
+  </label>
+  <label className="radio">
+    <input type="radio" name="hand" value="no"/>
+    <span className="name">Not</span>
+  </label>
+
+</div>
+
+      </div>
+      <div>
+        <button className="btna" >Submit</button>
+      
+      
+      </div>
+      
+    </form>
+
+  </div>
+ 
+</div>
+
+    
+    </>
+  )
+}
+
+export default Asli; -->
