@@ -1,0 +1,480 @@
+<!-- import React, { useContext, useEffect, useRef, useState } from "react";
+import "../Styles/Test.css";
+import Sab from "../Context/Sab";
+import Caht from "./Caht";
+import Moon from "./Moon";
+import { useParams } from "react-router-dom";
+
+
+
+
+
+
+const Test = () => {
+  const context = useContext(Sab);
+  const { ji, life } = context;
+  const inputRef = useRef(null);
+  const box = useRef(null);
+  const buttonRef = useRef(null);
+  const space_ref = useRef(null);
+  //pra
+  let userid = useParams();
+  const {choice_time} = userid;
+  console.log(choice_time,"guy");
+  //Time
+  const [multi_time,setmulti_time] = useState(0);
+  const [rock,setrock] = useState(5);
+  const [loading,setloading] = useState(false);
+
+  //hand  let table = "";
+      let check_righthand = [
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "space",
+        "u",
+        "y",
+        ",",
+        ".",
+        "?",
+      ];
+      let check_lefthand = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "q",
+        "r",
+        "s",
+        "space",
+        "t",
+        "v",
+        "w",
+        "x",
+        "z",
+      ];
+      let left_wala="";
+      let right_wala = "";
+
+      useEffect(()=>{
+        
+         left_wala = document.querySelector(`button[data-key="W"]`);
+         right_wala = document.querySelector('button[data-key="["]');
+
+        
+      },[])
+
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.innerHTML = life.outerHTML;
+    }
+  }, []);
+  let next_line = 0;
+  let change_line = 0;
+  let store = "";
+  let Remove_store = "";
+  //time
+  let warehouse = "";
+
+
+
+ 
+
+  function abc(vol) {
+    speaker(vol);
+    Both_hand();
+    Remove_hand();
+
+
+    if(rock == 5){
+     setrock(rock+2);
+      setmulti_time(multi_time+1);
+    }
+  }
+
+  function speaker(vol) {
+    let stomach = vol.target.value;
+    let count = vol.target.value.length - 1;
+
+    if (inputRef.current.children[0].children[change_line].children[count].innerText == stomach[count]) {
+      if (vol.target.value.length >= inputRef.current.children[0].children[change_line].children.length) {
+        Remove_store =inputRef.current.children[0].children[change_line].children[count].innerText;
+        console.log(Remove_store,"aqw");
+        change_line += 1;
+        console.log("change line sucessfull");
+        box.current.value = "";
+        store=inputRef.current.children[0].children[change_line].children[0].innerText;
+        inputRef.current.scrollTop += 70;
+      
+      
+      } else {
+        store =inputRef.current.children[0].children[change_line].children[count + 1].innerText;
+        Remove_store =inputRef.current.children[0].children[change_line].children[count].innerText;
+        let ignor =inputRef.current.children[0].children[change_line].children[count];
+        ignor.classList.add("word");
+        warehouse+=Remove_store;
+      }
+    } else if (inputRef.current.innerText[count] != stomach[count]) {
+      console.log(
+        inputRef.current.innerText[count],
+        inputRef.current.innerText[count + 1]
+      );
+      const wrong = stomach.substring(0, count);
+      box.current.value = wrong;
+    }
+  }
+
+  function Both_hand() {
+    if (store != " ") {
+      let tarzen = document.querySelectorAll("button[data-key]");
+    
+
+      const rButton = Array.from(tarzen).find(
+        (button) => button.dataset.key == store.toUpperCase()
+      );
+      rButton.classList.add("active");
+      //hand
+      let chomo  = rButton.innerHTML.toLowerCase();
+      let right_hand_or = check_righthand.includes(chomo);
+      let left_hand_or = check_lefthand.includes(chomo);
+      let tor = document.querySelector(`button[data-key="${chomo.toUpperCase()}"]`);
+      
+
+
+      if(right_hand_or){
+        if (chomo == ",") {
+          chomo = "comma";
+        } else if (chomo == ".") {
+          chomo = "dot";
+        } else if (chomo == "?") {
+          chomo = "question";
+        }
+        
+        right_bhai(chomo,tor);
+      }
+      else if(left_hand_or){
+        
+        left_bhai(chomo,tor);
+      }
+     //close hand
+    } else if (store == " ") {
+      space_ref.current.classList.add("active");
+      let tab = document.createElement("img");
+      tab.className = "left-space";
+      tab.src = "../src/Images/Hand/left/lefthand_space.png";
+     let sparke = document.getElementById("space");
+   
+      sparke.appendChild(tab);
+
+      let bath = document.createElement("img");
+      bath.className = "right-space";
+      bath.src = "../src/Images/Hand/right/righthand_space.png";
+      sparke.appendChild(bath);
+    }
+  }
+
+ 
+  function left_bhai(f,to_r) {
+    appendHandImage(f, "left",to_r);
+  }
+
+  function right_bhai(f,to_r) {
+    appendHandImage(f, "right",to_r);
+  }
+
+  function appendHandImage(word_img, shand,tor) {
+    let img = document.createElement("img");
+    img.src = `../src/Images/Hand/${shand}/${shand}hand_${word_img}.png`;
+    img.className = word_img;
+
+  
+    if (shand === "left") {
+      tor.appendChild(img);
+      let copa = document.createElement("img");
+      copa.className = "right-default";
+      copa.src = `../src/Images/Hand/right/rightdefault.png`;
+     let  right_wall= document.querySelector('button[data-key="["]');
+      console.log(right_wall,"right-wal",copa);
+      right_wall.append(copa);
+    } else {
+      try {
+        tor.appendChild(img);
+        let sopa = document.createElement("img");
+        sopa.className = "left-default";
+        sopa.src = "../src/Images/Hand/left/leftdefault.png";
+       let  left_wall = document.querySelector(`button[data-key="W"]`);
+        left_wall.append(sopa);
+        console.log("sucessful");
+      } catch (error) {
+        console.log('err',error);
+      }
+    }
+  }
+
+  function Remove_hand() {
+    if (Remove_store != " ") {
+      let Gen = document.querySelectorAll("button[data-key]");
+      const Can_Button = Array.from(Gen).find(
+        (button) => button.dataset.key == Remove_store.toUpperCase()
+      );
+
+      Can_Button.classList.remove("active");
+      let champ  = Can_Button.innerText;
+      let right_hand_rem = check_righthand.includes(champ.toLowerCase());
+      let left_hand_rem = check_lefthand.includes(champ.toLowerCase());
+      let tor_rem = Can_Button.outerHTML;
+      try {
+        if (champ == ",") {
+          champ = "comma";
+        } else if (champ == ".") {
+          champ = "dot";
+        } else if (champ == "?") {
+          champ = "question";
+        }
+        let walk = Can_Button.getElementsByClassName(`${champ.toLowerCase()}`)[0];
+        walk.remove();
+       
+        if(right_hand_rem){
+          console.log('+');
+          let  left_w = document.querySelector(`button[data-key="W"]`);
+          left_w.getElementsByClassName("left-default")[0].remove();
+        
+        }
+        else if(left_hand_rem){
+          let  right_wa= document.querySelector('button[data-key="["]');
+          right_wa.getElementsByClassName("right-default")[0].remove();
+        
+        }
+       
+      } catch (error) {
+        console.log('er');
+      }
+  
+    } else if (Remove_store == " ") {
+      space_ref.current.classList.remove("active");
+      let space_left = document.getElementsByClassName("left-space")[0];
+      let space_right = document.getElementsByClassName("right-space")[0];
+      if (space_left) {
+        console.log(space_left, "dafau");
+        space_left.remove();
+        space_right.remove();
+      }
+    }
+  }
+
+
+
+
+
+
+
+    function xamp(e){
+      console.log('op');
+    e.preventDefault();
+    
+    {capture:true}
+  }
+
+  useEffect(() => {
+    const handleWheel = (e) => {
+      e.preventDefault();
+    };
+
+    const element = inputRef.current;
+    if (element) {
+      element.addEventListener('wheel', handleWheel, { passive: false });
+
+      return () => {
+        element.removeEventListener('wheel', handleWheel);
+      };
+    }
+  }, []);
+ 
+
+function word_return(){
+  return warehouse;
+}
+
+function show_load(){
+  setloading(true); 
+  console.log('done');
+}
+
+  return (
+    <>
+      <div className="bg-[#F5DAD2]">
+      <h1 className="text-[red]"><Caht st={multi_time} doll={choice_time} fox={word_return} stop_time={show_load}></Caht></h1>
+     <div > <Moon></Moon></div>
+  
+     {/* {loading && <div className="overlay">Loading...........</div>} */}
+      <div className="wrapper ">
+        <section
+          data-scroll-data={0}
+          id="home"
+          className="home-section pt-[120px] h-[100vh] lg:pt-[180px] lg:pb-[100px] bg-[rgb(246,244,255)] relative "
+        >
+             {/* ///ok */}
+
+        <h1 id="li" ref={inputRef}  >  
+          ok
+        </h1>
+       
+
+        <div className="rowking">
+          <div className="col-12">
+            <input
+              id="inp"
+              ref={box}
+              size="50"
+              type="text"
+              onChange={(e) => abc(e)}
+            />
+          </div>
+        </div>
+        {console.log("-----------")}
+
+        <div className="keybord ml-[10px]">
+          <div className="row row1">
+            <button ref={buttonRef } data-key="Q">
+              Q
+            </button>
+            <button ref={buttonRef} data-key="W">
+              W
+            </button>
+            <button ref={buttonRef} data-key="E">
+              E
+            </button>
+            <button ref={buttonRef} data-key="R">
+              R
+            </button>
+            <button ref={buttonRef} data-key="T">
+              T
+            </button>
+            <button ref={buttonRef} data-key="Y">
+              Y
+            </button>
+            <button ref={buttonRef} data-key="U">
+              U
+            </button>
+            <button ref={buttonRef} data-key="I">
+              I
+            </button>
+            <button ref={buttonRef} data-key="O">
+              O
+            </button>
+            <button ref={buttonRef} data-key="P">
+              P
+            </button>
+            <button ref={buttonRef} data-key="[">
+              [
+            </button>
+            <button ref={buttonRef} data-key="]">
+              ]
+            </button>
+
+            <button id="special">Back</button>
+          </div>
+          <div className="row row2">
+            <button ref={buttonRef} data-key="A">
+              A
+            </button>
+            <button ref={buttonRef} data-key="S">
+              S
+            </button>
+            <button ref={buttonRef} data-key="D">
+              D
+            </button>
+            <button ref={buttonRef} data-key="F">
+              F
+            </button>
+            <button ref={buttonRef} data-key="G">
+              G
+            </button>
+            <button ref={buttonRef} data-key="H">
+              H
+            </button>
+            <button ref={buttonRef} data-key="J">
+              J
+            </button>
+            <button ref={buttonRef} data-key="K">
+              K
+            </button>
+            <button ref={buttonRef} data-key="L">
+              L
+            </button>
+            <button ref={buttonRef} data-key=";">
+              ;
+            </button>
+            <button ref={buttonRef} data-key="'">
+              "
+            </button>
+            <button id="enter">Enter</button>
+          </div>
+          <div className="row row3">
+            <button ref={buttonRef} data-key="Z">
+              Z
+            </button>
+            <button ref={buttonRef} data-key="X">
+              X
+            </button>
+            <button ref={buttonRef} data-key="C">
+              C
+            </button>
+            <button ref={buttonRef} data-key="V">
+              V
+            </button>
+            <button ref={buttonRef} data-key="B">
+              B
+            </button>
+            <button ref={buttonRef} data-key="N">
+              N
+            </button>
+            <button ref={buttonRef} data-key="M">
+              M
+            </button>
+            <button ref={buttonRef} data-key=",">
+              ,
+            </button>
+            <button ref={buttonRef} data-key=".">
+              .
+            </button>
+            <button ref={buttonRef} data-key="?">
+              ?
+            </button>
+            <button id="shift" ref={buttonRef} data-key="SHIFT">
+              Shift
+            </button>
+          </div>
+          <div className="row row4">
+            <div className="space" id="space" ref={space_ref}>
+              space
+            </div>
+            <div
+              className="backspace"
+              id="backspace"
+              ref={buttonRef}
+              data-key="SPACE"
+            >
+              Backspace
+            </div>
+          </div>
+        </div>
+        </section>
+        </div>
+      </div>
+      
+    </>
+  );
+};
+
+export default Test; -->

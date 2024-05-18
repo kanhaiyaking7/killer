@@ -1,0 +1,87 @@
+<!-- import React, { useState } from "react";
+import Sab from "./Sab";
+
+
+const Salt = (props) => {
+  let ji = "kanhaiya";
+
+
+  const questionData =
+    "of the same hools is optimized for learning and training. Examples might be simplified to improve reading and learning. Tutorials, references, and examples are constantly reviewed to avoid errors, but we cannot warrant full correctness of all content. While using W3Schools, you agree to have read and accepted o size are dropped from the same height, which ball will bounce";
+
+  function joker(st, end) {
+    let ch = Math.floor(Math.random() * (end - st) + st);
+    return ch;
+  }
+
+  const lines = questionData.split(" ");
+
+  function check() {
+    let root = 0;
+    let ko = 0;
+    let wi = lines.length;
+    for (let i = 0; root < wi ? true : false; i++) {
+      let ans = joker(6, 8);
+
+      ko += 1;
+      root += ans;
+    }
+
+    return ko;
+  }
+  let result = check();
+
+  let wi = questionData.length;
+
+  let life = document.createElement("div");
+  // life.innerHTML = pu.outerHTML;
+
+  function ablk() {
+    let st = 0;
+    let rum = 0;
+
+    for (let p = 1; p <= result; p++) {
+      let holk = joker(6, 7);
+      rum += holk;
+      let step1 = lines.slice(st, rum);
+
+      let step2 = step1.join(" ");
+
+      let step3 = document.createElement("h3");
+      let nandi = document.createElement("h3");
+
+      let kabja = document.createElement("span");
+      // step3.className = "pot";
+      nandi.className = "pot";
+      if (p == 1) {
+        // step3.setAttribute("id", "actual");
+        nandi.setAttribute("id", "actual");
+
+        step3.innerText = step2;
+
+        for (let m = 0; m < step3.innerText.length; m++) {
+          kabja.innerHTML = step3.innerText[m];
+          nandi.innerHTML += kabja.outerHTML;
+        }
+
+        life.innerHTML += nandi.outerHTML;
+        st += holk;
+      } else {
+        step3.innerText = step2;
+
+        for (let m = 0; m < step3.innerText.length; m++) {
+          kabja.innerHTML = step3.innerText[m];
+          nandi.innerHTML += kabja.outerHTML;
+        }
+
+        life.innerHTML += nandi.outerHTML;
+        st += holk;
+      }
+    }
+  }
+  ablk();
+
+  return <Sab.Provider value={{ ji, life }}>{props.children}</Sab.Provider>;
+};
+
+export default Salt; -->
